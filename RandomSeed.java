@@ -36,7 +36,7 @@ public class RandomSeed {
             } 
         }
         
-        // prints array in string format for testing purposes
+        // prints array in string format for testing in vacuum
         System.out.println(Arrays.toString(seed));
       }
 }
