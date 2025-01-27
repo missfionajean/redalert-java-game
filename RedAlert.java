@@ -57,6 +57,7 @@ public class RedAlert extends JFrame {
         // creates a random seed for mixing up buttons
         int[] seed = RandomSeed();
 
+        // creates list for level checking and re-randomization
         java.util.List<JButton> allButtons = new java.util.ArrayList<>();
 
         // creates and adds buttons to window
@@ -96,10 +97,12 @@ public class RedAlert extends JFrame {
         // timer logic
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
+            // local variables to be manipulated
             int level = 1;
             int countdown = 30;
             @Override
             public void run() {
+                // time remaining
                 if (countdown >= 0) {
                     // check for win
                     boolean levelComplete = true;
@@ -124,11 +127,17 @@ public class RedAlert extends JFrame {
                             }
                         }
                     }
+
                     // update timer
                     setTitle("Level " + level + " - Time: " + countdown);
                     countdown--;
+
+                // not time remaining
                 } else {
+                    // pop-up displays final score and thank you
                     JOptionPane.showMessageDialog(null, "Final Score: " + level + "\nThanks for playing!", "GAME OVER", JOptionPane.PLAIN_MESSAGE);
+
+                    // exits the program once "OK" is clicked
                     System.exit(0);
                 }
             }
