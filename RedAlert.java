@@ -1,9 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.*;
 
 public class RedAlert extends JFrame {
 
@@ -111,6 +111,7 @@ public class RedAlert extends JFrame {
                     for (JButton button : allButtons) {
                         if (button.getBackground().equals(Color.RED)) {
                             levelComplete = false;
+                            break;
                         }
                     }
 
