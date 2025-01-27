@@ -5,6 +5,15 @@ import javax.swing.*;
 
 public class RedAlert {
 
+    /*
+    RandomSeed is a non-static class, which cannot be called by the static-only main class. So we need to call it within the constructor below to side-step that requirement.
+
+    Syntax:
+    - public = whether it's accessible outside of the class where it's declared
+    - int[] = return type (can also be void, meaning no return)
+    - RandomSeed() = class name, required; can be used to access this class elsewhere
+    */
+
     public int[] RandomSeed() {
         // generating seed container
         int[] seed = new int[20];
@@ -42,6 +51,20 @@ public class RedAlert {
         return seed;
     }
 
+    /*
+    When a class is declared as below, with the same name as the parent, it is a constructor.
+
+    Constructors are used to initialize objects when the class is called, as seen in the main class at the bottom:
+
+    public static void main(String[] args) {
+        new RedAlert();
+    }
+
+    This allows us to side-step the static requirement for the main class, which is accessed automatically when running the program.
+
+    Constructors do NOT have return types at all, thus "void" is not needed.
+    */
+
     public RedAlert() {
         // creating frame for program
         JFrame frame = new JFrame();
@@ -49,13 +72,13 @@ public class RedAlert {
         // sets header for program window
         frame.setTitle("Level 1 - Time: 30");
 
-        // sets "x" button functionality to close window directly
+        // sets "X" button functionality to close window directly
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creates display template for elements on screen
         frame.setLayout(new GridLayout(5, 4));
 
-        // creates a random seed for mixing up buttons
+        // creates a random seed for mixing up button colors
         int[] seed = RandomSeed();
 
         // creates list for level checking and re-randomization
@@ -99,6 +122,7 @@ public class RedAlert {
             int level = 1;
             int countdown = 30;
             @Override
+            // void specifies no return value
             public void run() {
                 // time remaining
                 if (countdown >= 0) {
@@ -148,11 +172,22 @@ public class RedAlert {
         // sets frame to fit contents at or above preferred size
         frame.pack();
 
+        // frame.setLocationRelativeTo(null);
+
         // shows window on screen instead of just in memory
         frame.setVisible(true);
     }
 
+    /*
+    Java looks for main class (below) when running program, so the call of the constructor goes in here.
+
+    Must include static and void, meaning it cannot contain non-static code (unless side-stepped with a constructor) and will not return a value.
+
+    String[] args is necessary because it needs a parameter declaration here and you can only type strings in the terminal.
+    */
+
     public static void main(String[] args) {
+        // expects call to be in a variable, but is not needed
         new RedAlert();
     }
 }
