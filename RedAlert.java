@@ -1,11 +1,9 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 
-public class RedAlert extends JFrame {
+public class RedAlert {
 
     public int[] RandomSeed() {
         // generating seed container
@@ -45,14 +43,17 @@ public class RedAlert extends JFrame {
     }
 
     public RedAlert() {
+        // creating frame for program
+        JFrame frame = new JFrame();
+
         // sets header for program window
-        setTitle("Level 1 - Time: 30");
+        frame.setTitle("Level 1 - Time: 30");
 
         // sets "x" button functionality to close window directly
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creates display template for elements on screen
-        setLayout(new GridLayout(5, 4));
+        frame.setLayout(new GridLayout(5, 4));
 
         // creates a random seed for mixing up buttons
         int[] seed = RandomSeed();
@@ -73,25 +74,22 @@ public class RedAlert extends JFrame {
             }
 
             // adds a function to each button press
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+            button.addActionListener(e -> {
                     if (button.getBackground() == Color.RED) {
                         button.setBackground(Color.GREEN);
                     } else {
                         button.setBackground(Color.RED);
                     }
-                }
-            });
+                });
 
             // adds the button to the visual layout
-            add(button);
+            frame.add(button);
 
             // adds button to the list for management
             allButtons.add((JButton) button);
 
             // sets size of individual button before pack
-            button.setPreferredSize(new Dimension(120, 100));
+            button.setPreferredSize(new Dimension(155, 130));
         }
 
         // timer logic
@@ -118,7 +116,7 @@ public class RedAlert extends JFrame {
                     // iterates through buttons and reandomizes them
                     if (levelComplete) {
                         level += 1;
-                        countdown += 4;
+                        countdown += 3;
                         int[] newSeed = RandomSeed();
                         for (int i = 0; i < 20; i++) {
                             if (newSeed[i] == 0) {
@@ -130,7 +128,7 @@ public class RedAlert extends JFrame {
                     }
 
                     // update timer
-                    setTitle("Level " + level + " - Time: " + countdown);
+                    frame.setTitle("Level " + level + " - Time: " + countdown);
                     countdown--;
 
                 // not time remaining
@@ -148,18 +146,13 @@ public class RedAlert extends JFrame {
         timer.scheduleAtFixedRate(task, 0, 1000);
 
         // sets frame to fit contents at or above preferred size
-        pack();
+        frame.pack();
 
         // shows window on screen instead of just in memory
-        setVisible(true);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new RedAlert();
-            }
-        });
+        new RedAlert();
     }
 }
